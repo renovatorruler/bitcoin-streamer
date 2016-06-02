@@ -30,14 +30,14 @@ class BitcoinStream extends React.Component {
   
   render() {
     return (
-      <div className={ styles.bitcoinStream }>
+      <ul className={ styles.bitcoinStream }>
         { this.state.blocks.map(this.renderBlock) }
-      </div>
+      </ul>
     );
   }
 
   renderBlock(block) {
-    return <Block data={block} />;
+    return <Block data={block} key={block.hash}/>;
   }
 }
 
