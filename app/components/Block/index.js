@@ -22,7 +22,10 @@ class Block extends React.Component {
         <h2 className={ styles.blockHash }>Block hash: {this.props.data.hash}</h2>
         <ul className={ styles.blockDetails }>
           <li><h3>Transactions</h3></li>
-          {this.props.data.transaction_hashes.map(this.renderTx)}
+          {this.props.data.transaction_hashes.slice(0,10).map(this.renderTx)}
+          <li className={ styles.blockTruncatedEllipses }>&#8230;</li>
+          <li className={ styles.blockTruncatedEllipses }>&#8230;</li>
+          <li className={ styles.blockTruncatedMsg }>{this.props.data.transactions_count - 10} More Tx</li>
         </ul>
         <footer className={ styles.footer }>Block: {this.props.data.height}</footer>
       </li>
