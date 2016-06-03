@@ -11,6 +11,7 @@ import { call } from 'redux-saga/effects';
 
 import styles from './styles.css';
 
+import WebSocket from 'ws';
 
 import Block from 'components/Block';
 
@@ -25,17 +26,22 @@ class BitcoinStream extends React.Component {
     super();
     this.blockList = []
     this.blocks = []
+    this.ws = new WebSocket('wss://bitcoin.toshi.io');
     this.state = { blocks: this.blocks}
   }
 
   componentDidMount() {
     setInterval(() => {
-      this.loadData();
+      this.loadLatestBlock();
     }, this.props.interval);
-    this.loadData();
+    this.loadLatestBlock();
+
+    this.ws.on('transactions', function (data, flags) {
+        console.log(data, flags);
+    });
   }
 
-  loadData() {
+  loadLatestBlock() {
     request(this.props.blocksUrl)
       .then(blocks => {
         if(!this.blockList[blocks.data.hash]) {
