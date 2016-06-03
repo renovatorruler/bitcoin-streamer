@@ -4,3 +4,13 @@
   width: 800px;
   font-size: 10px;
 }
+
+.header {
+  font-size: 2em;
+  text-align: center;
+}
+
+.bitcoinStreamContainer {
+  background-image: url("./cork-wallet.png");
+  background-repeat: repeat;
+}

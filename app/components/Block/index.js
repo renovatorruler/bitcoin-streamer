@@ -21,8 +21,10 @@ class Block extends React.Component {
       <li className={ styles.block }>
         <h2 className={ styles.blockHash }>Block hash: {this.props.data.hash}</h2>
         <ul className={ styles.blockDetails }>
-          {this.props.data.transaction_hashes.slice(0,10).map(this.renderTx)}
+          <li><h3>Transactions</h3></li>
+          {this.props.data.transaction_hashes.map(this.renderTx)}
         </ul>
+        <footer className={ styles.footer }>Block: {this.props.data.height}</footer>
       </li>
     );
   }

@@ -3,7 +3,7 @@
   border: 1px solid #dedede;
   color: #555;
   font-family: courier, monospace;
-  margin: 2em 0;
+  margin: 0 0 1.5em 0;
   list-style: none;
   padding: 0 !important;
   position: relative;
@@ -31,6 +31,7 @@
   height: auto;
   list-style: none;
   padding: 5px 10px;
+  text-indent: 75px;
 }
 
 .blockHash {
@@ -42,6 +43,13 @@
 }
 
 .txHash {
-  text-indent: 75px;
+}
+
+.footer {
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: strong;
+  line-height: 2.5em;
+  height: 2.5em;
 }
 

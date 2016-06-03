@@ -30,8 +30,8 @@ class BitcoinStream extends React.Component {
   
   render() {
     return (
-      <div>
-        <h1>Bitcoin Blockchain</h1>
+      <div className={ styles.bitcoinStreamContainer }>
+        <h1 className={ styles.header }>Bitcoin Blockchain</h1>
         <ul className={ styles.bitcoinStream }>
           { this.state.blocks.map(this.renderBlock) }
         </ul>
