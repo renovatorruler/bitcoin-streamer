@@ -1,3 +1,47 @@
 .block {
-
+  background-color: #f5f5f5;
+  border: 1px solid #dedede;
+  color: #555;
+  font-family: courier, monospace;
+  margin: 2em 0;
+  list-style: none;
+  padding: 0 !important;
+  position: relative;
 }
+
+.block:before {
+  border-left: 1px solid #ffaa9f;
+  border-right: 1px solid #ffaa9f;
+  bottom: 0;
+  content: '';
+  display: block;
+  float: left;
+  left: 60px;
+  position: absolute;
+  top: 0;
+  width: 2px;
+}
+
+.blockDetails {
+  list-style: none;
+}
+
+.blockDetails > li {
+  border-bottom: 1px dotted #ccc;
+  height: auto;
+  list-style: none;
+  padding: 5px 10px;
+}
+
+.blockHash {
+  border-bottom: 1px solid #ccc;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-top: 3em;
+  text-indent: 70px;
+}
+
+.txHash {
+  text-indent: 75px;
+}
+
