@@ -36,6 +36,7 @@
 }
 
 .blockHash {
+  font-family: 'Playfair Display', serif;
   border-bottom: 1px solid #ccc;
   font-size: 1.2em;
   font-weight: bold;
