@@ -29,6 +29,7 @@ class BitcoinStream extends React.Component {
       unconfirmedBlock: {
         hash: "<unconfirmed>",
         transaction_hashes: [],
+        transactions_count: 0,
         height: 0
       }
     }
@@ -47,7 +48,8 @@ class BitcoinStream extends React.Component {
     this.ws.onmessage = (evt) => {
       let tx = JSON.parse(evt.data);
       let unconfirmedBlock = this.state.unconfirmedBlock;
-      unconfirmedBlock.transaction_hashes.push(tx.data.hash);
+      unconfirmedBlock.transaction_hashes.unshift(tx.data.hash);
+      unconfirmedBlock.transactions_count++;
       this.setState({unconfirmedBlock: this.state.unconfirmedBlock});
     };
     this.ws.onerror = (error) => {
@@ -71,7 +73,7 @@ class BitcoinStream extends React.Component {
       <div className={ styles.bitcoinStreamContainer }>
         <h1 className={ styles.header }>Bitcoin Blockchain</h1>
         <ul className={ styles.bitcoinStream }>
-          <Block data={this.state.unconfirmedBlock} key={this.state.unconfirmedBlock.hash} truncated={ false }/>
+          <Block data={this.state.unconfirmedBlock} key={this.state.unconfirmedBlock.hash} limit={ 10 } />
           { this.state.confirmedBlocks.map(this.renderBlock) }
         </ul>
       </div>
@@ -79,7 +81,7 @@ class BitcoinStream extends React.Component {
   }
 
   renderBlock(block) {
-    return <Block data={block} key={block.hash} truncated={ true }/>;
+    return <Block data={block} key={block.hash} limit={ 10 }/>;
   }
 }
 
