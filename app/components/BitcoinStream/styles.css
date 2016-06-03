@@ -19,3 +19,7 @@
   background-image: url("./cork-wallet.png");
   background-repeat: repeat;
 }
+
+.hidden {
+  display: none;
+}

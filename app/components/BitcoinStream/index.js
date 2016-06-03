@@ -24,31 +24,44 @@ class BitcoinStream extends React.Component {
     super();
     this.blockList = []
     this.blocks = []
-    this.state = { blocks: this.blocks}
+    this.state = {
+      confirmedBlocks: this.blocks,
+      unconfirmedBlock: {
+        hash: "<unconfirmed>",
+        transaction_hashes: [],
+        height: 0
+      }
+    }
   }
 
   componentDidMount() {
     setInterval(() => {
-      this.loadLatestBlock();
+      this.loadLatestConfirmedBlocks();
     }, this.props.interval);
-    this.loadLatestBlock();
+    this.loadLatestConfirmedBlocks();
 
     this.ws = new WebSocket('wss://bitcoin.toshi.io');
     this.ws.onopen = () => {
         this.ws.send('{"subscribe":"transactions"}');
     }
     this.ws.onmessage = (evt) => {
-      console.log("message recieved", evt);
+      let tx = JSON.parse(evt.data);
+      let unconfirmedBlock = this.state.unconfirmedBlock;
+      unconfirmedBlock.transaction_hashes.push(tx.data.hash);
+      this.setState({unconfirmedBlock: this.state.unconfirmedBlock});
     };
+    this.ws.onerror = (error) => {
+      console.error(error);
+    }
   }
 
-  loadLatestBlock() {
+  loadLatestConfirmedBlocks() {
     request(this.props.blocksUrl)
       .then(blocks => {
         if(!this.blockList[blocks.data.hash]) {
           this.blocks.unshift(blocks.data);
           this.blockList[blocks.data.hash] = blocks.data;
-          this.setState({blocks: this.blocks})
+          this.setState({confirmedBlocks: this.blocks})
         }
       })
   }
@@ -58,14 +71,15 @@ class BitcoinStream extends React.Component {
       <div className={ styles.bitcoinStreamContainer }>
         <h1 className={ styles.header }>Bitcoin Blockchain</h1>
         <ul className={ styles.bitcoinStream }>
-          { this.state.blocks.map(this.renderBlock) }
+          <Block data={this.state.unconfirmedBlock} key={this.state.unconfirmedBlock.hash} truncated={ false }/>
+          { this.state.confirmedBlocks.map(this.renderBlock) }
         </ul>
       </div>
     );
   }
 
   renderBlock(block) {
-    return <Block data={block} key={block.hash}/>;
+    return <Block data={block} key={block.hash} truncated={ true }/>;
   }
 }
 

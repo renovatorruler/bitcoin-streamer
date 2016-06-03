@@ -27,7 +27,7 @@
   list-style: none;
 }
 
-.blockDetails > li {
+.blockDetails li {
   border-bottom: 1px dotted #ccc;
   height: auto;
   list-style: none;
