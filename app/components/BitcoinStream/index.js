@@ -16,16 +16,34 @@ import Block from 'components/Block';
 
 class BitcoinStream extends React.Component {
 
-  constructor() {
-    super();
-    this.state = { blocks: [] }
+  static defaultProps = {
+    blocksUrl: "https://bitcoin.toshi.io/api/v0/blocks/latest",
+    interval: 5000
   }
 
-  async componentDidMount() {
-    const blocksUrl = "https://bitcoin.toshi.io/api/v0/blocks";
+  constructor() {
+    super();
+    this.blockList = []
+    this.blocks = []
+    this.state = { blocks: this.blocks}
+  }
 
-    request(blocksUrl)
-      .then(blocks => this.setState({blocks: blocks.data.slice(0, 5)}))
+  componentDidMount() {
+    setInterval(() => {
+      this.loadData();
+    }, this.props.interval);
+    this.loadData();
+  }
+
+  loadData() {
+    request(this.props.blocksUrl)
+      .then(blocks => {
+        if(!this.blockList[blocks.data.hash]) {
+          this.blocks.unshift(blocks.data);
+          this.blockList[blocks.data.hash] = blocks.data;
+          this.setState({blocks: this.blocks})
+        }
+      })
   }
   
   render() {

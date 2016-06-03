@@ -13,6 +13,8 @@
 }
 
 .bitcoinStreamContainer {
+  height: 100%;
+  width: 100%;
   background: #f1f4f9;
   background-image: url("./cork-wallet.png");
   background-repeat: repeat;
