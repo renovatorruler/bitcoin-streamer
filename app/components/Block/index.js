@@ -11,6 +11,8 @@ import { call } from 'redux-saga/effects';
 
 import styles from './styles.css';
 
+import Transaction from 'components/Transaction';
+
 class Block extends React.Component {
   static defaultProps = {
     limit: 0
@@ -68,8 +70,8 @@ class Block extends React.Component {
     if(this.state.displayTruncation) {
       return (
         <div>
-          <li className={ styles.blockTruncatedEllipses }>&#8230;</li>
-          <li className={ styles.blockTruncatedMsg }>{this.props.data.transactions_count - this.props.limit} More Tx</li>
+          <li className={styles.blockTruncatedEllipses}>&#8230;</li>
+          <li className={styles.blockTruncatedMsg}>{this.props.data.transactions_count - this.props.limit} More Tx</li>
         </div>
       )
     }
@@ -77,7 +79,7 @@ class Block extends React.Component {
 
   renderTx(tx) {
     return (
-      <li className={ styles.txHash } key={tx} >{tx}</li>
+      <Transaction className={styles.txHash} hash={tx} key={tx} />
     );
   }
 }
