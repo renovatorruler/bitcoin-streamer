@@ -5,5 +5,4 @@ import { shallow } from 'enzyme';
 import React from 'react';
 
 describe('<BitcoinStream />', () => {
-
 });
