@@ -11,9 +11,45 @@ import { call } from 'redux-saga/effects';
 
 import styles from './styles.css';
 
+import Transaction from 'components/Transaction';
+
 class Block extends React.Component {
+  static defaultProps = {
+    limit: 0
+  }
+
   constructor(props) {
     super(props);
+    this.state = {
+      transactionHashes: [],
+      displayTruncation: false
+    }
+  }
+
+  componentWillMount() {
+    this.updateState();
+  }
+
+  componentWillReceiveProps() {
+    this.updateState();
+  }
+
+  updateState() {
+    let transactionHashes = this.props.data.transaction_hashes;
+    let displayTruncation = false;
+
+    if(this.props.limit > 0) {
+      transactionHashes = transactionHashes.slice(0, this.props.limit);
+    }
+
+    if(this.props.data.transactions_count > this.props.limit) {
+      displayTruncation = true;
+    }
+
+    this.setState({
+      transactionHashes: transactionHashes, 
+      displayTruncation: displayTruncation
+    });
   }
 
   render() {
@@ -22,19 +58,28 @@ class Block extends React.Component {
         <h2 className={ styles.blockHash }>Block hash: {this.props.data.hash}</h2>
         <ul className={ styles.blockDetails }>
           <li><h3>Transactions</h3></li>
-          {this.props.data.transaction_hashes.slice(0,10).map(this.renderTx)}
-          <li className={ styles.blockTruncatedEllipses }>&#8230;</li>
-          <li className={ styles.blockTruncatedEllipses }>&#8230;</li>
-          <li className={ styles.blockTruncatedMsg }>{this.props.data.transactions_count - 10} More Tx</li>
+          {this.state.transactionHashes.map(this.renderTx)}
+          {this.renderTruncationBlock()}
         </ul>
         <footer className={ styles.footer }>Block: {this.props.data.height}</footer>
       </li>
     );
   }
 
+  renderTruncationBlock() {
+    if(this.state.displayTruncation) {
+      return (
+        <div>
+          <li className={styles.blockTruncatedEllipses}>&#8230;</li>
+          <li className={styles.blockTruncatedMsg}>{this.props.data.transactions_count - this.props.limit} More Tx</li>
+        </div>
+      )
+    }
+  }
+
   renderTx(tx) {
     return (
-      <li className={ styles.txHash }>{tx}</li>
+      <Transaction className={styles.txHash} hash={tx} key={tx} />
     );
   }
 }
