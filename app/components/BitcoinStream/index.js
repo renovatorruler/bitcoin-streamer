@@ -24,34 +24,44 @@ class BitcoinStream extends React.Component {
     super();
     this.blockList = []
     this.blocks = []
+    this.emptyUnconfirmedBlock = {
+      hash: "<unconfirmed>",
+      transaction_hashes: [],
+      transactions_count: 0,
+      height: 0
+    };
     this.state = {
       confirmedBlocks: this.blocks,
-      unconfirmedBlock: {
-        hash: "<unconfirmed>",
-        transaction_hashes: [],
-        transactions_count: 0,
-        height: 0
-      }
+      unconfirmedBlock: this.emptyUnconfirmedBlock
     }
   }
 
   componentDidMount() {
-    setInterval(() => {
-      this.loadLatestConfirmedBlocks();
-    }, this.props.interval);
     this.loadLatestConfirmedBlocks();
 
     this.ws = new WebSocket('wss://bitcoin.toshi.io');
     this.ws.onopen = () => {
-        this.ws.send('{"subscribe":"transactions"}');
-    }
-    this.ws.onmessage = (evt) => {
-      let tx = JSON.parse(evt.data);
-      let unconfirmedBlock = this.state.unconfirmedBlock;
-      unconfirmedBlock.transaction_hashes.unshift(tx.data.hash);
-      unconfirmedBlock.transactions_count++;
-      this.setState({unconfirmedBlock: this.state.unconfirmedBlock});
+        this.ws.send('{"subscribe": "transactions"}');
+        this.ws.send('{"subscribe": "blocks"}');
     };
+
+    this.ws.onmessage = (evt) => {
+      let dataObject = JSON.parse(evt.data);
+      if (dataObject.subscription === "transactions") {
+        let unconfirmedBlock = this.state.unconfirmedBlock;
+        unconfirmedBlock.transaction_hashes.unshift(dataObject.data.hash);
+        unconfirmedBlock.transactions_count++;
+        this.setState({unconfirmedBlock: unconfirmedBlock});
+      } else if (dataObject.subscription === "blocks") {
+        let confirmedBlocks = this.state.confirmedBlocks;
+        confirmedBlocks.unshift(dataObject.data);
+        this.setState({
+          confirmedBlocks: confirmedBlocks,
+          unconfirmedBlock: emptyUnconfirmedBlock
+        });
+      }
+    };
+
     this.ws.onerror = (error) => {
       console.error(error);
     }
