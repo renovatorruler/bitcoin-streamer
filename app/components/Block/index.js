@@ -69,7 +69,7 @@ class Block extends React.Component {
 
   renderTx(tx) {
     return (
-      <Transaction className={styles.txHash} hash={tx} key={tx} />
+      <li className={styles.txHash} key={tx}>{tx}</li>
     );
   }
 
