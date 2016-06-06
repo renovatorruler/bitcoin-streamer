@@ -24,7 +24,7 @@
 }
 
 /* Smartphones (portrait and landscape) ----------- */
-@media only screen and (max-device-width : 620px) {
+@media only screen and (max-device-width: 620px) {
   .bitcoinStream {
     width: 100%;
     font-size: 8px;
