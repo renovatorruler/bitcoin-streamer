@@ -1,22 +1,21 @@
 .block {
-  background-color: #f5f5f5;
-  border: 1px solid #dedede;
-  box-shadow: 4px 2px 5px -3px rgba(0,0,0,0.4);
+  background-color: #F5F5F5;
+  border: 1px solid #DEDEDE;
+  box-shadow: 4px 2px 5px -3px rgba(0, 0, 0, 0.4);
   color: #555;
   font-family: courier, monospace;
-  margin: 0 0 1.5em 0;
+  margin: 0 0 1.5em;
   list-style: none;
   padding: 0 !important;
   position: relative;
 }
 
-.block:before {
-  border-left: 1px solid #ffaa9f;
-  border-right: 1px solid #ffaa9f;
+.block::before {
+  border-left: 1px solid #FFAA9F;
+  border-right: 1px solid #FFAA9F;
   bottom: 0;
   content: '';
   display: block;
-  float: left;
   left: 60px;
   position: absolute;
   top: 0;
@@ -28,7 +27,7 @@
 }
 
 .blockDetails li {
-  border-bottom: 1px dotted #ccc;
+  border-bottom: 1px dotted #CCC;
   height: auto;
   list-style: none;
   padding: 5px 10px;
@@ -37,7 +36,7 @@
 
 .blockHash {
   font-family: 'Playfair Display', serif;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #CCC;
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 3em;
@@ -52,14 +51,16 @@
   font-size: 1.5em;
 }
 
-.txHash {
-}
-
 .footer {
   text-align: center;
   font-size: 1.2em;
   font-weight: strong;
   line-height: 2.5em;
-  height: 2.5em;
+  text-indent: 75px;
 }
 
+.expanded {
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.2em;
+}
