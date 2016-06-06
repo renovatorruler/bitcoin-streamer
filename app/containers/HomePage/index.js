@@ -81,6 +81,7 @@ export default class HomePage extends React.Component {
         if (!this.blockList[blocks.data.hash]) {
           this.blocks.unshift(blocks.data);
           this.blockList[blocks.data.hash] = blocks.data;
+          this.emptyUnconfirmedBlock.height = blocks.data.height + 1;
           this.setState({
             confirmedBlocks: this.blocks,
             unconfirmedBlock: this.emptyUnconfirmedBlock,

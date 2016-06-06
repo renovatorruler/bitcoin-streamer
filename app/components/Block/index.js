@@ -24,7 +24,9 @@ class Block extends React.Component {
     this.state = {
       transactionHashes: [],
       displayTruncation: false,
+      expanded: false,
     };
+    this.expandBlock = this.expandBlock.bind(this);
   }
 
   componentWillMount() {
@@ -35,16 +37,25 @@ class Block extends React.Component {
     this.updateState();
   }
 
+  expandBlock() {
+    this.setState({
+      expanded: !this.state.expanded,
+      transactionHashes: this.props.data.transaction_hashes,
+    });
+  }
+
   updateState() {
     let transactionHashes = this.props.data.transaction_hashes;
     let displayTruncation = false;
 
-    if (this.props.limit > 0) {
-      transactionHashes = transactionHashes.slice(0, this.props.limit);
-    }
+    if (this.state.expanded === false) {
+      if (this.state.expanded || this.props.limit > 0) {
+        transactionHashes = transactionHashes.slice(0, this.props.limit);
+      }
 
-    if (this.props.data.transactions_count > this.props.limit) {
-      displayTruncation = true;
+      if (this.props.data.transactions_count > this.props.limit) {
+        displayTruncation = true;
+      }
     }
 
     this.setState({
@@ -59,9 +70,11 @@ class Block extends React.Component {
         <div>
           <li className={styles.blockTruncatedEllipses}>&#8230;</li>
           <li className={styles.blockTruncatedMsg}>{this.props.data.transactions_count - this.props.limit} More Tx</li>
+          <li className={styles.expanded} onClick={this.expandBlock}>&#x25BC; Expand</li>
         </div>
       );
     }
+
     return '';
   }
 
