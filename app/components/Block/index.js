@@ -8,14 +8,12 @@ import React from 'react';
 
 import styles from './styles.css';
 
-import Transaction from 'components/Transaction';
-
 class Block extends React.Component {
 
   static propTypes = {
     data: React.PropTypes.object,
     limit: React.PropTypes.number,
-  }
+  };
 
   static defaultProps = {
     limit: 0,
