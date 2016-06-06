@@ -18,7 +18,7 @@ export default function createRoutes() {
 
   return [
     {
-      path: '/',
+      path: '/bitcoin-streamer/',
       name: 'home',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
