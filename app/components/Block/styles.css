@@ -7,7 +7,7 @@
   margin: 0 0 1.5em;
   list-style: none;
   padding: 0 !important;
-  position: relative;
+  width: 100%;
 }
 
 .block::before {
@@ -16,7 +16,7 @@
   bottom: 0;
   content: '';
   display: block;
-  left: 60px;
+  left: 6%;
   position: absolute;
   top: 0;
   width: 2px;
@@ -31,7 +31,10 @@
   height: auto;
   list-style: none;
   padding: 5px 10px;
-  text-indent: 75px;
+  text-indent: 6%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .blockHash {
@@ -40,7 +43,11 @@
   font-size: 1.2em;
   font-weight: bold;
   margin-top: 3em;
-  text-indent: 70px;
+  text-indent: 8%;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .blockTruncatedMsg {
@@ -56,7 +63,6 @@
   font-size: 1.2em;
   font-weight: strong;
   line-height: 2.5em;
-  text-indent: 75px;
 }
 
 .expanded {

@@ -3,6 +3,7 @@
   padding: 0;
   width: 800px;
   font-size: 10px;
+  position: relative;
 }
 
 .header {
@@ -13,11 +14,6 @@
 }
 
 .bitcoinStreamContainer {
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  height: 100%;
   background: #F1F4F9;
   background-image: url('./cork-wallet.png');
   background-repeat: repeat;
@@ -25,4 +21,20 @@
 
 .hidden {
   display: none;
+}
+
+/* Smartphones (portrait and landscape) ----------- */
+@media only screen and (max-device-width : 620px) {
+  .bitcoinStream {
+    width: 100%;
+    font-size: 8px;
+  }
+  .bitcoinStreamContainer {
+    width: 100%;
+    height: 100%;
+    font-size: 8px;
+  }
+  .header {
+    font-size: 2em;
+  }
 }
