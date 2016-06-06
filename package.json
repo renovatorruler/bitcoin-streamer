@@ -155,6 +155,12 @@
       "indentation": 2
     }
   },
+  "gh-pages-deploy": {
+    "staticpath": "build",
+    "prep": [
+      "build"
+    ]
+  },
   "dependencies": {
     "babel-polyfill": "^6.7.4",
     "bufferutil": "^1.2.1",
