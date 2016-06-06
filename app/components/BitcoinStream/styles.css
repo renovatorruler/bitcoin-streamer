@@ -9,7 +9,7 @@
   font-size: 3em;
   text-align: center;
   font-family: 'Playfair Display', serif;
-  text-shadow: 0 2px 2px rgba(255,255,255,0.9);
+  text-shadow: 0 2px 2px rgba(255, 255, 255, 0.9);
 }
 
 .bitcoinStreamContainer {
@@ -18,8 +18,8 @@
   top: 0;
   bottom: 0;
   height: 100%;
-  background: #f1f4f9;
-  background-image: url("./cork-wallet.png");
+  background: #F1F4F9;
+  background-image: url('./cork-wallet.png');
   background-repeat: repeat;
 }
 
